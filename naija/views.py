@@ -72,10 +72,6 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-            usr = get_user_model().objects.get(username=username)
-            usr.is_staff=True
-            usr.is_superuser=True
-            usr.save()
             login(request, user)
             return redirect('home')
     else:

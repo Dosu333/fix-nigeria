@@ -9,7 +9,11 @@
             <h5 class="card-header">{{ problem.problem_category }}</h5>
             <div class="card-body">
             <h5 class="card-title">{{ problem.title_of_problem }}</h5>
+            {% if problem.short_description %}
             <p class="card-text">{{ problem.short_description }}</p>
+            {% else %}
+            <p class="card-text"></p>
+            {% endif %}
             <a href={% url 'naija:create-profile' problem.id %} class="btn btn-outline-success">Start Solution</a>
             <a href={% url 'naija:list-solution' problem.id %} class="btn btn-outline-success">See Solutions</a>
             </div>
