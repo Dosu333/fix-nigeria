@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% bootstrap_messages %}
 
 {% block content %}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li class = "alert alert-success" role="alert" >{{message}}</li>
+
+  {% endfor %}
+</ul>
+
+{% endif %}
+
     {% if solutions %}
         {% for solution in solutions %}
             <div class="card">

@@ -1,6 +1,9 @@
 from django.shortcuts import render
 
 from django.views.generic import TemplateView, FormView
+from django.http import HttpResponseRedirect
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.urls import reverse
 from django.shortcuts import redirect
 from .models import *
@@ -27,7 +30,20 @@ class SolutionView(TemplateView):
 class CreateSolutionView(FormView):
     template_name = 'create-solution.html'
     form_class = SolutionForm
-    
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        title = form.cleaned_data['solution_title']
+        body = form.cleaned_data['solution_text']
+        profile_id = self.request.session['profile_id']
+        problem_id = self.request.session['problem_id']
+
+        profile = Profile.objects.get(id=profile_id)
+        problem = Problem.objects.get(id=problem_id)
+        Solution.objects.create(solution_provider=profile, problem=problem, solution_title=title, solution_text=body)
+
+        messages.success(self.request, "Successful")
+        return HttpResponseRedirect(f'/solutions/list-solution/{problem_id}/')
 
 class ProfileCreateView(FormView):
     template_name = 'profile_form.html'
