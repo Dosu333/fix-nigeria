@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if solutions %}
+        {% for solution in solutions %}
+            <div class="card">
+                <div class="card-header">
+                Number of votes: 14
+                </div>
+                
+                <div class="card-body">
+                <h5 class="card-title">{{ solution.solution_title }}</h5>
+                <p class="card-text" style="font-size:22px;" >{{ solution.solution_text }}</p>
+                <a href="#" class="btn btn-warning">Approve</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No solutions yet</p>
+    {% endif %}
+{% endblock %}
