@@ -15,3 +15,22 @@ class Problem(models.Model):
 
     def __str__(self):
         return self.title_of_problem
+
+class Profile(models.Model):
+    fullname = models.CharField(max_length=255)
+    contact_email  = models.EmailField()
+    account_number = models.CharField(max_length=10)
+    bank = models.CharField(max_length=255)
+    account_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.fullname
+    
+class Solution(models.Model):
+    problem = models.ForeignKey(Problem,on_delete=models.CASCADE)
+    solution_provider = models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True,blank=True)
+    solution_title = models.CharField(max_length=255, blank=True, null=True)
+    solution_text = models.TextField()
+
+    def __str__(self):
+        return self.solution_title
