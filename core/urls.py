@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from naija.views import HomePage
+from naija.views import HomePage, signup
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePage.as_view(), name='home'),
+    path('signup/', signup, name='signup'),
     path('solutions/',include('naija.urls', namespace='naija'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

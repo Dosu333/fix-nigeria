@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, FormView
 from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
@@ -62,3 +63,21 @@ class ProfileCreateView(FormView):
         self.request.session['problem_id'] = self.kwargs['pk']
         return redirect('naija:create')
         # return super().form_valid(form)
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            usr = get_user_model().objects.get(username=username)
+            usr.is_staff=True
+            usr.is_superuser=True
+            usr.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
