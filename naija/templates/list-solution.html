@@ -22,13 +22,17 @@
         {% for solution in solutions %}
             <div class="card">
                 <div class="card-header">
-                Number of votes: 14
+                Number of votes: {{ solution.user_voted.all|length }}
                 </div>
                 
                 <div class="card-body container">
                 <h5 class="card-title">{{ solution.solution_title }}</h5>
                 <p class="card-text" style="font-size:20px;" >{{ solution.solution_text }}</p>
-                <a href="#" class="btn btn-warning">Approve</a>
+                {% if user in solution.user_voted.all %}
+                <span class="badge rounded-pill bg-danger">Voted</span>
+                {% else %}
+                <a href={% url 'naija:vote' solution.id %}?next={{ request.path|urlencode }} class="btn btn-success">Approve</a>
+                {% endif %}
                 </div>
             </div>
         {% endfor %}

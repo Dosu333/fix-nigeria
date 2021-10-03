@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, get_user_model, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, FormView
 from django.http import HttpResponseRedirect
@@ -82,4 +83,12 @@ def signup(request):
 def logout_view(request):
     success_url = request.GET.get('next','/')
     logout(request)
+    return redirect(success_url)
+
+@login_required(login_url='/login/')
+def vote_solution_view(request,pk):
+    success_url = request.GET.get('next','/')
+    solution = Solution.objects.get(id=pk)
+    solution.user_voted.add(request.user)
+    solution.save()
     return redirect(success_url)

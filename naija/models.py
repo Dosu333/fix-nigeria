@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
 class Category(models.Model):
@@ -31,6 +31,7 @@ class Solution(models.Model):
     solution_provider = models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True,blank=True)
     solution_title = models.CharField(max_length=255, blank=True, null=True)
     solution_text = models.TextField()
+    user_voted = models.ManyToManyField(get_user_model())
 
     def __str__(self):
         return self.solution_title
