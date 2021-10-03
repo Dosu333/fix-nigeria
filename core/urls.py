@@ -18,11 +18,13 @@ from django.urls import path,include
 from naija.views import HomePage, signup,logout_view
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePage.as_view(), name='home'),
     path('signup/', signup, name='signup'),
     path('logout/', logout_view, name='logout'),
-    path('solutions/',include('naija.urls', namespace='naija'))
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('solutions/',include('naija.urls', namespace='naija')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

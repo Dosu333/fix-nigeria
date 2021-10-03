@@ -4,7 +4,7 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block content %}
-<h1>Sign Up</h1>
+<h1>Sign In</h1>
 <div class='container-fluid'>
   <form method="post" class="form">
     {% csrf_token %}
@@ -12,7 +12,7 @@
     <br>
     {% buttons %}
       <button type="submit" class="btn btn-outline-success">
-        Sign Up
+        Sign In
       </button>
     {% endbuttons %}
   </form>
