@@ -10,7 +10,7 @@
             <div class="card-body">
             <h5 class="card-title">{{ problem.title_of_problem }}</h5>
             <p class="card-text">{{ problem.short_description }}</p>
-            <a href="#" class="btn btn-outline-success">Start Solution</a>
+            <a href={% url 'naija:create-profile' problem.id %} class="btn btn-outline-success">Start Solution</a>
             <a href={% url 'naija:list-solution' problem.id %} class="btn btn-outline-success">See Solutions</a>
             </div>
         </div>
