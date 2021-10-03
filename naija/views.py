@@ -67,17 +67,19 @@ class ProfileCreateView(FormView):
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        success_url = request.GET.get('next','/')
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect(success_url)
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 def logout_view(request):
+    success_url = request.GET.get('next','/')
     logout(request)
-    return redirect('home')
+    return redirect(success_url)
