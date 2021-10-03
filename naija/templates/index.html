@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Jumbotron Text -->
+    <!-- <h1>Be one of the lucky winners this week!</h1> -->
+    {% for problem in problems %}
+    <div class="card">
+        <h5 class="card-header">{{ problem.problem_category }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ problem.title_of_problem }}</h5>
+          <p class="card-text">{{ problem.short_description }}</p>
+          <a href="#" class="btn btn-outline-success">See Solutions</a>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock %}
